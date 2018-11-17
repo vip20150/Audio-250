@@ -1,113 +1,118 @@
-(function(){
-console.log('did the function even fire');
-var audioList = [];
-/* AudioObject Constructor */
-function AudioObject(audio, duration) {
-	this.audio = audio;
-	this.id = audio.id;
-	this.duration = duration;
-}
-/* bindAudioPlayer
- * Store audioplayer components in correct AudioObject
- * num identifes correct audioplayer
- */
-AudioObject.prototype.bindAudioPlayer = function (num) {
-  console.log('what am i asking for'+ "ep"+num);
-	this.audioplayer = document.getElementById("ep" + num);
-	this.play = this.audioplayer.querySelector('.pcast-play');
-  this.pause = this.audioplayer.querySelector('.pcast-pause');
-  this.rewind = this.audioplayer.querySelector('.pcast-rewind');
-  this.progress = this.audioplayer.querySelector('.pcast-progress');
-  this.mute = this.audioplayer.querySelector('.pcast-mute');
-  this.currentTime = this.audioplayer.querySelector('.pcast-currenttime');
-  this.duration = this.audioplayer.querySelector('.pcast-duration');
-  this.pause.style.display = 'none';
-}
-/* addEventListeners() */
-AudioObject.prototype.addEventListeners = function () {
-	this.audio.addEventListener("timeupdate", AudioObject.prototype.timeupdate, false);
-	this.audio.addEventListener("loadedmetadata", AudioObject.prototype.loadedmetadata, false);
-	this.progress.addEventListener("click", AudioObject.prototype.progressClick, false);
-	this.play.addEventListener("click", AudioObject.prototype.pressPlay, false);
-  this.pause.addEventListener("click", AudioObject.prototype.pressPause, false);
-  this.rewind.addEventListener("click", AudioObject.prototype.pressRewind, false);
-  this.mute.addEventListener("click", AudioObject.prototype.pressMute, false);
-}
+new jPlayerPlaylist(
+  {
+    jPlayer: "#jquery_jplayer_1",
+    cssSelectorAncestor: "#jp_container_1"
+  },
+  [
+    {
+      title: "Cro Magnon Man",
+      mp3: "http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
+    },
+    {
+      title: "Your Face",
+      mp3: "http://www.jplayer.org/audio/mp3/TSP-05-Your_face.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/TSP-05-Your_face.ogg"
+    },
+    {
+      title: "Cyber Sonnet",
+      mp3: "http://www.jplayer.org/audio/mp3/TSP-07-Cybersonnet.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/TSP-07-Cybersonnet.ogg"
+    },
+    {
+      title: "Tempered Song",
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-01-Tempered-song.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-01-Tempered-song.ogg"
+    },
+    {
+      title: "Hidden",
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-02-Hidden.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg"
+    },
+    {
+      title: "Lentement",
 
-    var toHHMMSS = function ( totalsecs ) {
-        var sec_num = parseInt(totalsecs, 10); // don't forget the second param
-        var hours   = Math.floor(sec_num / 3600);
-        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-03-Lentement.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-03-Lentement.ogg"
+    },
+    {
+      title: "Lismore",
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-04-Lismore.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-04-Lismore.ogg"
+    },
+    {
+      title: "The Separation",
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-05-The-separation.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-05-The-separation.ogg"
+    },
+    {
+      title: "Beside Me",
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-06-Beside-me.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-06-Beside-me.ogg"
+    },
+    {
+      title: "Bubble",
 
-        if (hours   < 10) {hours   = "0"+hours; }
-        if (minutes < 10) {minutes = "0"+minutes;}
-        if (seconds < 10) {seconds = "0"+seconds;}
-        
-        var time = hours+':'+minutes+':'+seconds;
-        return time;
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
+    },
+    {
+      title: "Stirring of a Fool",
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-08-Stirring-of-a-fool.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-08-Stirring-of-a-fool.ogg"
+    },
+    {
+      title: "Partir",
+
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-09-Partir.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-09-Partir.ogg"
+    },
+    {
+      title: "Thin Ice",
+      mp3: "http://www.jplayer.org/audio/mp3/Miaow-10-Thin-ice.mp3",
+      oga: "http://www.jplayer.org/audio/ogg/Miaow-10-Thin-ice.ogg"
     }
-    
-    audio.addEventListener('loadedmetadata', function(){
-      progress.setAttribute('max', Math.floor(audio.duration));
-      duration.textContent  = toHHMMSS(audio.duration);
-    });
-    
-  AudioObject.prototype.timeupdate = function () {
-	 this.progress.setAttribute('value', this.audio.currentTime);
-   this.currentTime.textContent  = toHHMMSS(this.audio.currentTime);
-	};
-  
+  ],
+  {
+    swfPath: "src/swf/",
+    solution: "html, flash",
+    supplied: "mp3",
+    preload: "auto",
+    wmode: "window",
+    useStateClassSkin: true,
+    autoBlur: false,
+    smoothPlayBar: true,
+    keyEnabled: true,
+    stop: function(e) {
+      $(".toggle-play").removeClass("active");
+      $(".waves").fadeOut();
+    },
+    pause: function(e) {
+      $(".toggle-play").removeClass("active");
+      $(".waves").fadeOut();
+    },
+    play: function(e) {
+      $(".toggle-play").addClass("active");
+      $(".waves").fadeIn();
+    },
+    ready: function(e) {}
+  }
+);
+$(".toggle-list").bind("click", function() {
+  if (!$("body").hasClass("active")) {
+    $("body").addClass("active");
+  } else {
+    $("body").removeClass("active");
+  }
+});
+$(window).on("load", function() {
+  $("#jquery_jplayer_1").jPlayer("play");
+});
 
- AudioObject.prototype.progressClick = function(e){
-    this.audio.currentTime = Math.floor(this.audio.duration) * (e.offsetX / e.target.offsetWidth);
-    };
-  
-AudioObject.prototype.pressPlay = function(){
-  console.log('audio button clicked');
-      this.style.display = 'none';
-      this.pause.style.display = 'inline-block';
-      this.pause.focus();
-      this.audio.play();
-      console.log(this.audio.getElementByID);
-    };
-
-AudioObject.prototype.pressPause = function(){
-      this.style.display = 'none';
-      this.play.style.display = 'inline-block';
-      this.play.focus();
-      this.audio.pause();
-    };
- 
-AudioObject.prototype.pressRewind = function(){
-   this.audio.currentTime -= 30;
-    };
-
-AudioObject.prototype.pressMute = function() {
-      if(this.audio.muted) {
-        this.audio.muted = false;
-        this.querySelector('.fa').classList.remove('fa-volume-off');
-        this.querySelector('.fa').classList.add('fa-volume-up');
-      } else {
-        this.audio.muted = true;
-        this.querySelector('.fa').classList.remove('fa-volume-up');
-        this.querySelector('.fa').classList.add('fa-volume-off');
-      }
-    };
-  
-  /* populateAudioList */
-function populateAudioList() {
-	var audioElements = document.getElementsByTagName("audio");
-   console.log('how many audios '+ audioElements.length);
-	for (i = 0; i < audioElements.length; i++) {
-		audioList.push(
-			new AudioObject(audioElements[i], 0)
-		);
-	//	audioList[i].bindAudioPlayer(i);
-	//	audioList[i].addEventListeners();
-	}
-};
-  
-    populateAudioList();
-  
+$(".toggle-play").on("click", function() {
+  if (!$(".jp-audio").hasClass("jp-state-playing")) {
+    $("#jquery_jplayer_1").jPlayer("play");
+  } else {
+    $("#jquery_jplayer_1").jPlayer("stop");
+  }
 });
