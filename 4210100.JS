@@ -1,7 +1,7 @@
 <ul id="content-wrapper"></ul>
 <button onclick="load()" id="loadMore">Load more </button>
 
-const content = ['a', 'b', 'c', 'd', 'e', 'f'];
+const content = ['اللهم اهدنا في من هديت', 'b', 'c', 'd', 'e', 'f'];
 let counter = 0;
 
 function load() {
