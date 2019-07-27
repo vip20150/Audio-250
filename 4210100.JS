@@ -1,22 +1,46 @@
-<ul id="content-wrapper"></ul>
-<button onclick="load()" id="loadMore">Load more </button>
-
-const content = ['اللهم اهدنا في من هديت', 'b', 'c', 'd', 'e', 'f'];
-let counter = 0;
-
-function load() {
-  var node = document.createElement("li");  // Create a <li> node
-  var textnode;
-
-  if(content[counter]) {
-    // Create a text node if there is text  
-    textnode = document.createTextNode(content[counter]); 
-  } else {
-    // Return a message if there is no more
-    textnode = document.createTextNode('No Data'); 
+(function($) {
+  $.fn.feed = function(options) {
+    
   }
+})(jQuery);
 
-  counter++; // Increment counter
-  node.appendChild(textnode);  // Append the text to <li>
-  document.querySelector('#content-wrapper').appendChild(node)
-}
+$(function() {
+  $('.feed').each(function(idx, el) {
+    var $el = $(el);
+    var id = $el.attr('id');
+    
+    if (typeof id == 'undefined' || id === false) {
+       $el.attr('id', 'feed-' + idx);
+    }
+    
+    $el.find('.btn-show-more').attr('aria-controls', $el.attr('id'));
+  });
+  
+  $('.feed').attr({
+    'role' : 'region',
+    'aria-live' : 'polite',
+    'aria-relevant' : 'additions'
+  });
+  
+  $('.feed .btn-show-more').attr({
+    'role' : 'button',
+    'aria-disabled' : 'false'
+  });
+  
+  $('.feed .btn-show-more').click(function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    
+    $this.before('<div class="anim-container" />');
+    $animContainer = $('.anim-container').hide();
+    
+    $newNewsItems = $('.feed .item:first').clone(); // Replace with AJAX request
+    $($newNewsItems).appendTo($animContainer);
+    
+    $animContainer.slideDown(400, function() {
+      $this.before($('.anim-container .item').detach());
+      $animContainer.remove();
+      // ARIA polite for update
+    });
+  });
+});
